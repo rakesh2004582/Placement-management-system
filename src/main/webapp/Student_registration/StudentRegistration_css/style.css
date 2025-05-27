@@ -1,0 +1,286 @@
+* {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #e0eafc, #cfdef3);
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 48px;
+        margin-top: 30px;
+        color: #2b4f81;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      form {
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        text-align: left;
+        margin-bottom: 20px;
+        color: #3b5998;
+        font-size: 24px;
+        border-left: 5px solid #3b5998;
+        padding-left: 10px;
+        animation: slideIn 1s ease;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+      }
+
+      .group {
+        position: relative;
+        width: 48%;
+        margin-top: 20px;
+      }
+
+      .input {
+        font-size: 16px;
+        padding: 10px 10px 10px 5px;
+        display: block;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        background: transparent;
+        transition: all 0.3s ease;
+      }
+
+      .input:focus {
+        outline: none;
+        border-color: #3b5998;
+      }
+
+      label {
+        color: #999;
+        font-size: 18px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 10px;
+        transition: 0.2s ease all;
+      }
+
+      .input:focus ~ label,
+      .input:valid ~ label {
+        top: -18px;
+        font-size: 14px;
+        color: #3b5998;
+      }
+
+      .bar {
+        position: relative;
+        display: block;
+        width: 100%;
+      }
+
+      .bar:before,
+      .bar:after {
+        content: "";
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: #3b5998;
+        transition: 0.3s ease all;
+      }
+
+      .bar:before {
+        left: 50%;
+      }
+
+      .bar:after {
+        right: 50%;
+      }
+
+      .input:focus ~ .bar:before,
+      .input:focus ~ .bar:after {
+        width: 50%;
+      }
+
+      .highlight {
+        position: absolute;
+        height: 60%;
+        width: 100px;
+        top: 25%;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      .input:focus ~ .highlight {
+        animation: inputHighlighter 0.3s ease;
+      }
+
+      @keyframes inputHighlighter {
+        from {
+          background: #3b5998;
+        }
+
+        to {
+          width: 0;
+          background: transparent;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(-30px);
+          opacity: 0;
+        }
+
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .remove-btn {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        margin-top: 20px;
+        height: fit-content;
+        align-self: flex-end;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .remove-btn:hover {
+        background-color: #cc0000;
+      }
+
+      input[type="submit"] {
+        background-color: #3586ff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+       float: left;
+        margin-left: 35%;
+        border-radius: 9px;
+      }
+
+      input[type="reset"] {
+        background-color: #f30000;
+        border: none;
+        color: white;
+        padding: 10px 27px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        float: right;
+        margin-right: 35%;
+        border-radius: 9px;
+      }
+
+      .add-prj-btn {
+        background-color: #31036ece;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 9px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .row {
+          flex-direction: column;
+        }
+
+        .group {
+          width: 100%;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%;
+        }
+
+        h1 {
+          font-size: 36px;
+        }
+
+        .add-prj-btn {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 28px;
+        }
+
+        .row {
+          margin-bottom: 15px;
+        }
+
+        .group {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        input[type="submit"],
+        input[type="reset"],
+        .add-prj-btn {
+          font-size: 14px;
+        }
+
+        .remove-btn {
+          font-size: 14px;
+          padding: 5px 10px;
+        }
+      }
+      .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+}

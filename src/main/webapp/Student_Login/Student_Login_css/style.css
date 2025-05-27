@@ -1,0 +1,158 @@
+* {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .flex-column label {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .inputForm {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #f5f5f5;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .inputForm svg {
+      margin-right: 10px;
+      fill: #888;
+    }
+
+    .inputForm input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .flex-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .flex-row input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .span {
+      color: #007bff;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .button-submit {
+      width: 100%;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .button-submit:hover {
+      background: #0056b3;
+    }
+
+    .p {
+      text-align: center;
+      margin: 1rem 0 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .line {
+      position: relative;
+      margin: 1rem 0;
+    }
+
+    .line::before,
+    .line::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: #ccc;
+    }
+
+    .line::before {
+      left: 0;
+    }
+
+    .line::after {
+      right: 0;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      margin: 0 5px;
+      transition: all 0.3s;
+    }
+
+    .btn.google {
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+
+    .btn.google:hover {
+      background: #f0f0f0;
+    }
+
+    .btn.apple {
+      background: #000;
+      color: #fff;
+    }
+
+    .btn.apple:hover {
+      opacity: 0.85;
+    }
+
+    .flex-row:last-child {
+      display: flex;
+      justify-content: space-between;
+    }

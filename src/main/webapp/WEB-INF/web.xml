@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <!-- Student registration -->
+    <servlet>
+        <servlet-name>RegisterStudentServlet</servlet-name>
+        <servlet-class>com.example.Student.RegisterStudentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegisterStudentServlet</servlet-name>
+        <url-pattern>/RegisterStudentServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Student login -->
+    <servlet>
+        <servlet-name>StudentLogin</servlet-name>
+        <servlet-class>com.example.Student.StudentLoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StudentLogin</servlet-name>
+        <url-pattern>/StudentLogin</url-pattern>
+    </servlet-mapping>
+    
+    <!--   Company Register  -->
+    <servlet>
+    	<servlet-name>CompanyRegister</servlet-name>
+    	<servlet-class>com.example.company.CompanyReg</servlet-class>
+    </servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CompanyRegister</servlet-name>
+		<url-pattern>/CompanyReg</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Company Login mapping -->
+	<servlet>
+		<servlet-name>CompanyLogin</servlet-name>
+		<servlet-class>com.example.company.CompanyLogin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CompanyLogin</servlet-name>
+		<url-pattern>/CompanyLogin</url-pattern>
+	</servlet-mapping>
+</web-app>
