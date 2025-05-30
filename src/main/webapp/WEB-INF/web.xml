@@ -47,4 +47,13 @@
 		<servlet-name>CompanyLogin</servlet-name>
 		<url-pattern>/CompanyLogin</url-pattern>
 	</servlet-mapping>
+	<!-- -selected student mapping  -->
+		<servlet>
+		<servlet-name>Selected</servlet-name>
+		<servlet-class>com.example.company.ProcessSelectedStudents</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Selected</servlet-name>
+		<url-pattern>/ProcessSelectedStudents</url-pattern>
+	</servlet-mapping>
 </web-app>

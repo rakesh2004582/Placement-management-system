@@ -1,6 +1,7 @@
  
 package com.example.company;
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -51,8 +52,17 @@ System.out.println("Pass : "+password);
                 HttpSession session = request.getSession();
                 session.setAttribute("company", company);
 
+                // 1. Check if company already selected students
+                if (companyAlreadySelectedStudents(company)) {
+                    request.setAttribute("company", company);
+                    RequestDispatcher rd = request.getRequestDispatcher("selected.jsp");
+                    rd.forward(request, response);
+                    return; // important: stop further processing
+                }
+
+                // 2. Fetch eligible students only if not already selected
                 PreparedStatement ps2 = con.prepareStatement(
-                    "SELECT name, tenth_percent, twelfth_percent, grad_percent FROM student_registration WHERE tenth_percent >= ? AND twelfth_percent >= ? AND grad_percent >= ?");
+                    "SELECT name, contact, tenth_percent, twelfth_percent, grad_percent FROM student_registration WHERE tenth_percent >= ? AND twelfth_percent >= ? AND grad_percent >= ?");
                 ps2.setFloat(1, tenth);
                 ps2.setFloat(2, twelfth);
                 ps2.setFloat(3, higher);
@@ -66,15 +76,14 @@ System.out.println("Pass : "+password);
                     float t = eligibleRs.getFloat("tenth_percent");
                     float tw = eligibleRs.getFloat("twelfth_percent");
                     float h = eligibleRs.getFloat("grad_percent");
-
-                    Student student = new Student(name, t, tw, h);
+                    String contact = eligibleRs.getString("contact");
+                    Student student = new Student(name, t, tw, h, contact);
                     eligibleStudents.add(student);
                 }
 
-                System.out.println("Eligible students fetched: " + eligibleStudents.size());
-
                 request.setAttribute("eligibleStudents", eligibleStudents);
-                  request.setAttribute("CompanyName", company);// set company name for showing on the company dash board
+                request.setAttribute("CompanyName", company);
+
                 RequestDispatcher rd = request.getRequestDispatcher("/Company/company_dashboard.jsp");
                 rd.forward(request, response);
 
@@ -83,6 +92,8 @@ System.out.println("Pass : "+password);
                 rs.close();
                 ps.close();
                 con.close();
+            
+
 
             } else {
                 System.out.println("Invalid company credentials");
@@ -100,6 +111,39 @@ System.out.println("Pass : "+password);
             response.sendRedirect(request.getContextPath() + "/Company/companyLogin.jsp?error=server");
 
         }
+    }
+
+    private boolean companyAlreadySelectedStudents(String company) {
+        boolean isSelected = false;
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/placementManagementSystem", "root", "123456");
+
+            String query = "SELECT COUNT(*) FROM selected_students WHERE companyname = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, company);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count > 0) {
+                    isSelected = true; // company ke liye selected students already hain
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {}
+            try { if (ps != null) ps.close(); } catch (Exception e) {}
+            try { if (con != null) con.close(); } catch (Exception e) {}
+        }
+
+        return isSelected;
     }
 }
 

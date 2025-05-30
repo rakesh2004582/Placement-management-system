@@ -9,10 +9,41 @@
 </head>
 <link rel="stylesheet" href="./CompanyReg/style.css">
 <script src="./CompanyReg/script.js"></script>
+ <style>
+    .renderbtn{
+    display:flex;
+    justify-content: space-evenly;
+    }
+    .renderbtn a{
+    margin-top:2%;
+    }
+     .homelogo{
+     height:69%;
+     width:58%;
+     }
+     .backlogo{
+     height:82%;
+     width:68%;
+     }
+    </style>
 <body>
+
+ 
  <div class="container">
-    <h2> Company Register</h2>
-    
+  
+   <div class="renderbtn">
+ <a href="${pageContext.request.contextPath}/">
+
+  <img src="${pageContext.request.contextPath}/home.png" alt="home" class="homelogo">
+</a>
+ <h1> Company Register</h1>
+<a href="${pageContext.request.contextPath}/Company/companyLogin.jsp" >
+<img src="${pageContext.request.contextPath}/back.png" class="backlogo">
+</a>
+ 
+  </div>
+ 
+ 
        <!-- <form onsubmit="registerUser()" action="CompanyReg" method="post" style="padding-left:28px">-->
       <form action="<%= request.getContextPath() %>/CompanyReg" method="post" style="padding-left:28px">
       <!--        <form onsubmit="registerUser()" action="../CompanyReg" method="post" style="padding-left:28px"> -->

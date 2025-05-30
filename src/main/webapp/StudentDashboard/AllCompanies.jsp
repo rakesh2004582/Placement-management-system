@@ -82,14 +82,37 @@
             }
         }
     </style>
+    <style type="text/css">
+     .renderbtn{
+    display:flex;
+    justify-content: space-evenly;
+    }
+    .renderbtn a{
+    margin-top:0%;
+    }
+    .renderbtn h1{
+    font-size:3.2rem;
+    }
+    </style>
 </head>
 <body>
+  <div class="renderbtn">
+ <a href="${pageContext.request.contextPath}/">
 
-<h2>All Registered Companies</h2>
+  <img src="${pageContext.request.contextPath}/home.png" alt="home" class="homelogo">
+</a>
+ <h1> All Registered Companies</h1>
+<a   href="${pageContext.request.contextPath}/StudentDashboard/studentDashboard.jsp" class="backlogo">
+ <img src="${pageContext.request.contextPath}/back.png">
+</a>
+ 
+  </div>
+ 
 
 <table cellpadding="10" cellspacing="0">
     <thead>
         <tr>
+        	<th>Sr</th>
             <th>Company Name</th>
             <th>10th %</th>
             <th>12th %</th>
@@ -99,18 +122,22 @@
     </thead>
     <tbody>
     <%
+    	int i=1;
         boolean dataFound = false;
         while (rs.next()) {
             dataFound = true;
     %>
         <tr>
+        	<td><%=i %></td>
             <td><%= rs.getString("companyname") %></td>
             <td><%= rs.getFloat("tenthpercentage") %></td>
             <td><%= rs.getFloat("twelfthpercentage") %></td>
             <td><%= rs.getFloat("highereducation_percent") %></td>
-            <td><%= rs.getString("password") %></td>
+            <td><%= rs.getString("location") %></td>
         </tr>
+       
     <%
+    i++;
         }
 
         if (!dataFound) {

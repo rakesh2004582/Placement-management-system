@@ -335,8 +335,7 @@ public class RegisterStudentServlet extends HttpServlet {
         Part resumePart = request.getPart("resume");
         Part photoPart = request.getPart("photo");
 
-         
-
+        
         // Handle resume
         if (resumePart == null || resumePart.getSize() == 0) {
         	response.getWriter().println("<h3>Please upload your resume PDF.</h3>");
@@ -345,9 +344,9 @@ public class RegisterStudentServlet extends HttpServlet {
              System.out.println(" resume upload");
         }
         
-     // 1. Define upload path
-//        String resumeUploadPath = getServletContext().getRealPath("") + File.separator + "media" + File.separator + "UserResume".trim();
-        String resumeUploadPath="C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\Placement-Management-System\\media\\UserResume".trim();
+ 
+        String resumeUploadPath = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\Placement-Management-System\\src\\main\\webapp\\media\\UserResume".trim();
+
         File resumeDir = new File(resumeUploadPath);
         if (!resumeDir.exists()) {
             resumeDir.mkdirs();
@@ -370,7 +369,9 @@ public class RegisterStudentServlet extends HttpServlet {
         }
 
         // Image save path
-        String uploadPath = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\Placement-Management-System\\media\\user-profile".trim();
+//        String uploadPath = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\Placement-Management-System\\media\\user-profile".trim();
+        String uploadPath= "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\Placement-Management-System\\src\\main\\webapp\\media\\user-profile".trim();
+       
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();  // Create folder if not exists
@@ -399,6 +400,7 @@ public class RegisterStudentServlet extends HttpServlet {
 //        String resumeSavePath =uploadPath + File.separator+newResumeName;
         photoPart.write(photoSavePath);
 //        resumePart.write(resumeSavePath);
+        System.out.println("upload path : "+uploadPath);
         System.out.println("Photo save path : "+photoSavePath);
         System.out.println("Resume path : "+ resumeDBPath);
         System.out.println("Resume Save Path "+resumeSavePath);
@@ -457,7 +459,7 @@ public class RegisterStudentServlet extends HttpServlet {
                                 }
 
                                 // Redirect to dashboard on success
-                                response.sendRedirect("StudentDashboard/studentDashboard.jsp");
+                                response.sendRedirect("Student_Login/StudentLogin.jsp");
                                 return;
                             }
                         }

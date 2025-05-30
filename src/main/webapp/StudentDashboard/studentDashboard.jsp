@@ -118,7 +118,7 @@ System.out.println("Get Gmail : "+email);
             labels: ["All Companies", "Eligiable Company", "Pass Count", "Fail Count", "Placed Company"],
             datasets: [{
                 label: "Count",
-                data: [<%=companyCount%>, 7, 5, 2, 1],
+                data: [<%=companyCount%>, <%= eligibleCompanyCount %>, 5, 2, 1],
                 backgroundColor: [
                     "rgba(54, 162, 235, 0.7)",
                     "rgba(255, 206, 86, 0.7)",
@@ -169,15 +169,39 @@ System.out.println("Get Gmail : "+email);
         });
     });
     </script>
+       <style>
+     
+    .renderbtn{
+    display:flex;
+    justify-content: space-evenly;
+    }
+    .renderbtn a{
+    margin-top:0;
+    }
+    .renderbtn h1{
+    font-size:4.5rem;
+    }
+    </style>
 </head>
 <body>
+  <div class="renderbtn">
+ <a href="${pageContext.request.contextPath}/">
+
+  <img src="${pageContext.request.contextPath}/home.png" alt="home" class="homelogo">
+</a>
+ <h1>🎓 Student Dashboard</h1>
+<a href="${pageContext.request.contextPath}/Student_Login/StudentLogin.jsp" class="backlogo">
+<img src="${pageContext.request.contextPath}/back.png">
+</a>
+ 
+  </div>
     <div class="dashboard">
-      <header>
+<!--       <header>
         <h1>🎓 Student Dashboard</h1>
-      </header>
+      </header> -->
 
       <div class="top-bar">
-        <div class="profile-section">
+        <div class="profile-section" style="gap: 2rem;">
           <!-- ✅ Image from DB -->
           <!-- <img src="<%= imageurl %>" alt="Profile Image" class="profile-img" id="profileImage" /> -->
          <!--  <img src="../<%=imageurl %>" alt="Profile Image" class="profile-img" id="profileImage" />-->

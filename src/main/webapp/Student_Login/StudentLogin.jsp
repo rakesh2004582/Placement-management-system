@@ -9,11 +9,11 @@
  
  <link rel="stylesheet" href="${pageContext.request.contextPath}/Student_Login/Student_Login_css/style.css">
  
-  
+    
  
 </head>
 <body>
-
+ 
   <form class="form" action="${pageContext.request.contextPath}/StudentLogin" method="post">
     <div class="flex-column">
       <label>Email</label>
@@ -46,7 +46,7 @@
 
     <button type="submit" class="button-submit">Sign In</button>
 
-    <p class="p">Don't have an account? <span class="span">Sign Up</span></p>
+    <p class="p">Don't have an account? <span class="span"><a href="${pageContext.request.contextPath}/Student_registration/registration.jsp">Sign Up</a></span></p>
     <p class="p line">Or With</p>
 
     <div class="flex-row">

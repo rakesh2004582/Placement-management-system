@@ -44,7 +44,7 @@
       .profile-section {
         display: flex;
         align-items: center;
-        gap: 4rem;
+        gap: 2rem;
       }
  
  
@@ -76,7 +76,7 @@
       .action-buttons {
         margin-left: auto; /* push buttons to right */
         display: flex;
-        gap: 3rem;
+        gap: 2rem;
       }
       .edit-btn,
       .logout-btn {

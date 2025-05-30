@@ -106,14 +106,37 @@
             }
         }
     </style>
+      <style>
+       .renderbtn{
+    display:flex;
+    justify-content: space-evenly;
+    }
+    .renderbtn a{
+    margin-top:0;
+    }
+    .renderbtn h1{
+    font-size:3.2rem;
+    }
+    </style>
 </head>
 <body>
+  <div class="renderbtn">
+ <a href="${pageContext.request.contextPath}/">
 
-<h2>Eligible Companies for You</h2>
+  <img src="${pageContext.request.contextPath}/home.png" alt="home" class="homelogo">
+</a>
+ <h1>Eligible Companies for You</h1>
+<a  href="${pageContext.request.contextPath}/StudentDashboard/studentDashboard.jsp" class="backlogo">
+<img src="${pageContext.request.contextPath}/back.png">
+</a>
+ 
+  </div>
+ 
 
 <table>
     <thead>
         <tr>
+        	<th>Sr</th>
             <th>Company Name</th>
             <th>10th % Requirement</th>
             <th>12th % Requirement</th>
@@ -123,11 +146,13 @@
     </thead>
     <tbody>
     <%
+    int i=1;
         boolean found = false;
         while (rs.next()) {
             found = true;
     %>
         <tr>
+        	<td><%=i %></td>
             <td><%= rs.getString("companyname") %></td>
             <td><%= rs.getFloat("tenthpercentage") %></td>
             <td><%= rs.getFloat("twelfthpercentage") %></td>
@@ -135,6 +160,7 @@
             <td><%= rs.getString("location") %></td>
         </tr>
     <%
+    i++;
         }
         if (!found) {
     %>

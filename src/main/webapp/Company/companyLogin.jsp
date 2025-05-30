@@ -94,12 +94,44 @@
       font-weight: bold;
     }
   </style>
+  <style>
+    .renderbtn{
+    display:flex;
+    justify-content: space-evenly;
+    }
+    .renderbtn a{
+    margin-top:2%;
+    }
+     .homelogo{
+     height:64%;
+     width:54%;
+     float:left;
+     }
+     .backlogo{
+     height:87%;
+     width:65%;
+     float:right;
+     }
+     .renderbtn h1{
+     font-size:28px;
+     }
+    </style>
 </head>
 <body>
 
  
   <div class="container">
-    <h2>Login</h2>
+    <div class="renderbtn">
+ <a href="${pageContext.request.contextPath}/">
+
+  <img src="${pageContext.request.contextPath}/home.png" alt="home" class="homelogo">
+</a>
+ <h1> Company Login</h1>
+<a href="${pageContext.request.contextPath}/Company/companyhome.jsp" >
+<img src="${pageContext.request.contextPath}/back.png" class="backlogo">
+</a>
+ 
+  </div>
     <%-- show error message if login fails --%>
     <%
     String error = request.getParameter("error");

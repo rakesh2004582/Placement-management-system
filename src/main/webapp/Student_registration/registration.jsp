@@ -6,10 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Registration</title>
     <link rel="stylesheet" href="./StudentRegistration_css/style.css" />
+    
+    <style>
+    .renderbtn{
+    display:flex;
+    justify-content: space-evenly;
+    }
+    .renderbtn a{
+    margin-top:2%;
+    }
+     
+    </style>
+    
   </head>
 
   <body>
-    <h1>🎓 Student Registration</h1>
+  <div class="renderbtn">
+ <a href="${pageContext.request.contextPath}/">
+
+  <img src="${pageContext.request.contextPath}/home.png" alt="home" class="homelogo">
+</a>
+ <h1>🎓 Student Registration</h1>
+<a href="${pageContext.request.contextPath}/Student_Login/StudentLogin.jsp" class="backlogo">
+<img src="${pageContext.request.contextPath}/back.png">
+</a>
+ 
+  </div>
+    
 
     <!-- <form action="${pageContext.request.contextPath}/RegisterStudentServlet" method="post" onsubmit="return validatePasswords()" id="myForm uploadForm"> -->
       <!-- <form action="${pageContext.request.contextPath}/RegisterStudentServlet" method="post" enctype="multipart/form-data" onsubmit="return validatePasswords()" id="myForm uploadForm"> -->

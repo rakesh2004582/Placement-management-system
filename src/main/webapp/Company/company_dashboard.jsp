@@ -4,6 +4,168 @@
 
 <%
     List<Student> students = (List<Student>) request.getAttribute("eligibleStudents");
+    String CompanyName = (String) request.getAttribute("CompanyName");
+    System.out.println("Company name in dashboard file : " + CompanyName);
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        .renderbtn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .renderbtn a img {
+            height: 50px;
+            width: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .renderbtn a img:hover {
+            transform: scale(1.1);
+        }
+
+        table {
+            width: 95%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        button {
+            padding: 5px 12px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1c5980;
+        }
+    </style>
+</head>
+<body>
+
+<div class="renderbtn">
+    <a href="${pageContext.request.contextPath}/">
+        <img src="${pageContext.request.contextPath}/home.png" alt="Home" class="homelogo">
+    </a>
+
+    <h1>Welcome to <%= CompanyName %></h1>
+
+    <a href="${pageContext.request.contextPath}/Company/companyLogin.jsp">
+        <img src="${pageContext.request.contextPath}/back.png" alt="Back" class="backlogo">
+    </a>
+</div>
+
+<form action="${pageContext.request.contextPath}/ProcessSelectedStudents" method="post">
+    <input type="hidden" name="companyname" value="<%= CompanyName %>"/>
+    <table>
+        <thead>
+            <tr>
+                <th>Sr</th>
+                <th>Name</th>
+                <th>10th %</th>
+                <th>12th %</th>
+                <th>Higher Education %</th>
+                <th>Contact</th>
+                <th>Select</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                if (students != null && !students.isEmpty()) {
+                    int index = 0;
+                    for (Student s : students) {
+            %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= s.getName() %></td>
+                <td><%= s.getTenth() %></td>
+                <td><%= s.getTwelfth() %></td>
+                <td><%= s.getHigherEducation() %></td>
+                <td><%= s.getContact() %></td>
+                <td>
+                    <input type="checkbox" name="selectedStudents" value="<%= s.getName() %>|<%= s.getContact() %>"/>
+                </td>
+                <td>
+                    <input type="checkbox" name="deletedStudents" value="<%= s.getName() %>|<%= s.getContact() %>"/>
+                </td>
+            </tr>
+            <%
+                        index++;
+                    }
+                } else {
+            %>
+            <tr>
+                <td colspan="8" style="text-align:center;">No eligible students found.</td>
+            </tr>
+            <%
+                }
+            %>
+        </tbody>
+    </table>
+    <div style="text-align:center; margin-top:20px;">
+        <button type="submit" name="submitAction" value="submitAll" style="padding:10px 25px; font-size:16px;">Submit Final Selection</button>
+    </div>
+</form>
+
+</body>
+</html>
+
+<%-- <%@ page import="java.util.List" %>
+<%@ page import="com.example.company.Student" %>
+<%@ page isELIgnored="false" %>
+
+<%
+    List<Student> students = (List<Student>) request.getAttribute("eligibleStudents");
+    String CompanyName = (String) request.getAttribute("CompanyName");
+    System.out.println("Company name in dashboard file : " + CompanyName);
 %>
 
 <!DOCTYPE html>
@@ -11,29 +173,71 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        .renderbtn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .renderbtn a img {
+            height: 50px;
+            width: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .renderbtn a img:hover {
+            transform: scale(1.1);
+        }
+
         table {
-            width: 100%;
+            width: 95%;
+            margin: 30px auto;
             border-collapse: collapse;
-            table-layout: fixed;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
             text-align: center;
             word-wrap: break-word;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #3498db;
+            color: white;
         }
 
-        .select-btn, .delete-btn {
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        .select-btn,
+        .delete-btn {
             padding: 6px 12px;
             border: none;
             cursor: pointer;
-            margin-right: 5px;
             border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .selected {
@@ -46,7 +250,6 @@
             color: white;
         }
 
-        /* Responsive design */
         @media screen and (max-width: 768px) {
             table, thead, tbody, th, td, tr {
                 display: block;
@@ -78,13 +281,6 @@
                 text-align: left;
             }
         }
-        button{
-        border-radius:8px;
-        }
-        h1{
-        margin:auto;
-        text-align:center;
-        }
     </style>
 
     <script>
@@ -103,179 +299,61 @@
     </script>
 </head>
 <body>
-<%
-    String CompanyName = (String) request.getAttribute("CompanyName");
-System.out.println("Company name in dashboard file : "+CompanyName);
-%>
 
-<h1>
-<%= CompanyName %>
-</h1>
-<%-- <h1>${CompanyName}</h1> --%>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>10th %</th>
-        <th>12th %</th>
-        <th>Higher Education %</th>
-        <th>Select/Delete</th>
-    </tr>
-    </thead>
+    <div class="renderbtn">
+        <a href="${pageContext.request.contextPath}/">
+            <img src="${pageContext.request.contextPath}/home.png" alt="Home" class="homelogo">
+        </a>
 
-    <tbody>
-    <%
-        if (students != null && !students.isEmpty()) {
-            int index = 0;
-            for (Student s : students) {
-    %>
-    <tr>
-        <td data-label="Name"><%= s.getName() %></td>
-        <td data-label="10th %"><%= s.getTenth() %></td>
-        <td data-label="12th %"><%= s.getTwelfth() %></td>
-        <td data-label="Higher Education %"><%= s.getHigherEducation() %></td>
-        <td data-label="Select/Delete">
-            <button class="select-btn" id="select-<%= index %>" onclick="toggleButtons(<%= index %>, 'select')">Select</button>
-            <button class="delete-btn" id="delete-<%= index %>" onclick="toggleButtons(<%= index %>, 'delete')">Delete</button>
-        </td>
-    </tr>
-    <%
-                index++;
-            }
-        } else {
-    %>
-    <tr><td colspan="5" style="text-align:center;">No eligible students found.</td></tr>
-    <%
-        }
-    %>
-    </tbody>
-</table>
+        <h1>Welcome to <%= CompanyName %></h1>
 
-</body>
-</html>
+        <a href="${pageContext.request.contextPath}/Company/companyLogin.jsp">
+            <img src="${pageContext.request.contextPath}/back.png" alt="Back" class="backlogo">
+        </a>
+    </div>
 
-
-<%--  
- <%@ page import="java.util.List" %>
-<%@ page import="com.example.company.Student" %>
-<%@ page import="com.example.company.Student" %>
-<%
-    List<Student> students = (List<Student>) request.getAttribute("eligibleStudents");
-%>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Eligible Students</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f7f9fc;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 12px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007BFF;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #e6f7ff;
-            transition: 0.3s;
-        }
-
-        .action-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .select-btn {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .delete-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @media (max-width: 768px) {
-            table, th, td {
-                font-size: 14px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<h2>Eligible Students</h2>
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>10th %</th>
-        <th>12th %</th>
-        <th>Higher Education %</th>
-        <th>Action</th>
-    </tr>
-
-    <%
-    if (students != null && !students.isEmpty()) {
-        for (Student s : students) {
-    %>
-    <tr>
-        <td><%= s.getName() %></td>
-        <td><%= s.getTenth() %></td>
-        <td><%= s.getTwelfth() %></td>
-        <td><%= s.getHigherEducation() %></td>
-        <td>
-            <!-- Select Form -->
-            <form action="SelectStudentServlet" method="post" style="display:inline;">
-                <input type="hidden" name="studentId" value="<%= s.getId() %>">
-                <button type="submit" class="action-btn select-btn">Select</button>
-            </form>
-
-            <!-- Delete Form -->
-            <form action="DeleteStudentServlet" method="post" style="display:inline;">
-                <input type="hidden" name="studentId" value="<%= s.getId() %>">
-                <button type="submit" class="action-btn delete-btn">Delete</button>
-            </form>
-        </td>
-    </tr>
-    <%
-        }
-    } else {
-    %>
-    <tr><td colspan="5">No eligible students found.</td></tr>
-    <%
-    }
-    %>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Sr</th>
+                <th>Name</th>
+                <th>10th %</th>
+                <th>12th %</th>
+                <th>Higher Education %</th>
+                <th>Contact</th>
+                <th>Select/Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                if (students != null && !students.isEmpty()) {
+                    int index = 0;
+                    for (Student s : students) {
+            %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td data-label="Name"><%= s.getName() %></td>
+                <td data-label="10th %"><%= s.getTenth() %></td>
+                <td data-label="12th %"><%= s.getTwelfth() %></td>
+                <td data-label="Higher Education %"><%= s.getHigherEducation() %></td>
+                <td data-label="contact"><%= s.getContact() %></td>
+                <td data-label="Select/Delete">
+                    <button class="select-btn" id="select-<%= index %>" onclick="toggleButtons(<%= index %>, 'select')">Select</button>
+                    <button class="delete-btn" id="delete-<%= index %>" onclick="toggleButtons(<%= index %>, 'delete')">Delete</button>
+                </td>
+            </tr>
+            <%
+                        index++;
+                    }
+                } else {
+            %>
+            <tr>
+                <td colspan="6" style="text-align:center;">No eligible students found.</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
 
 </body>
 </html>
-  --%>
+   --%>
