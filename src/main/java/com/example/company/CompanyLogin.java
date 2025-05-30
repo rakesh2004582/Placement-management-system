@@ -53,12 +53,12 @@ System.out.println("Pass : "+password);
                 session.setAttribute("company", company);
 
                 // 1. Check if company already selected students
-                if (companyAlreadySelectedStudents(company)) {
-                    request.setAttribute("company", company);
-                    RequestDispatcher rd = request.getRequestDispatcher("selected.jsp");
-                    rd.forward(request, response);
-                    return; // important: stop further processing
-                }
+//                if (companyAlreadySelectedStudents(company)) {
+//                    request.setAttribute("company", company);
+//                    RequestDispatcher rd = request.getRequestDispatcher("selected.jsp");
+//                    rd.forward(request, response);
+//                    return; // important: stop further processing
+//                }
 
                 // 2. Fetch eligible students only if not already selected
                 PreparedStatement ps2 = con.prepareStatement(
@@ -83,9 +83,28 @@ System.out.println("Pass : "+password);
 
                 request.setAttribute("eligibleStudents", eligibleStudents);
                 request.setAttribute("CompanyName", company);
+                
+                
+                 
+                 String query = "SELECT COUNT(*) FROM selectedstudent WHERE companyname = ?";
+                  PreparedStatement ps3 = con.prepareStatement(query);
+               ps3.setString(1,company);
+               ResultSet rs3=ps3.executeQuery();
+               int companyCount=0;
+               if(rs3.next()){
+              companyCount = rs3.getInt(1);
+              }
+               System.out.println("Company : "+company+" Selected Student :"+companyCount);
+              
+                 if(companyCount>0) {
+                	 request.setAttribute("company", company);
+                	 RequestDispatcher rd= request.getRequestDispatcher("selected.jsp");
+                	 rd.forward(request, response);
+                 }else {
+                     RequestDispatcher rd = request.getRequestDispatcher("/Company/company_dashboard.jsp");
+                     rd.forward(request, response);
+                 }
 
-                RequestDispatcher rd = request.getRequestDispatcher("/Company/company_dashboard.jsp");
-                rd.forward(request, response);
 
                 eligibleRs.close();
                 ps2.close();
@@ -112,38 +131,38 @@ System.out.println("Pass : "+password);
 
         }
     }
-
-    private boolean companyAlreadySelectedStudents(String company) {
-        boolean isSelected = false;
-
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/placementManagementSystem", "root", "123456");
-
-            String query = "SELECT COUNT(*) FROM selected_students WHERE companyname = ?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, company);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                if (count > 0) {
-                    isSelected = true; // company ke liye selected students already hain
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try { if (rs != null) rs.close(); } catch (Exception e) {}
-            try { if (ps != null) ps.close(); } catch (Exception e) {}
-            try { if (con != null) con.close(); } catch (Exception e) {}
-        }
-
-        return isSelected;
-    }
+//
+//    private boolean companyAlreadySelectedStudents(String company) {
+//        boolean isSelected = false;
+//
+//        Connection con = null;
+//        PreparedStatement ps= null;
+//        ResultSet rs = null;
+//
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/placementManagementSystem", "root", "123456");
+//
+//            String query = "SELECT COUNT(*) FROM selectedstudents WHERE companyname = ?";
+//            ps = con.prepareStatement(query);
+//            ps.setString(1, company);
+//            rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                int count = rs.getInt(1);
+//                if (count > 0) {
+//                    isSelected = true; // company ke liye selected students already hain
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try { if (rs != null) rs.close(); } catch (Exception e) {}
+//            try { if (ps != null) ps.close(); } catch (Exception e) {}
+//            try { if (con != null) con.close(); } catch (Exception e) {}
+//        }
+//
+//        return isSelected;
+//    }
 }
 
