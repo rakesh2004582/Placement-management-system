@@ -155,6 +155,19 @@
     </div>
 </form>
 
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const selected = document.querySelectorAll("input[name='selectedStudents']:checked");
+        const deleted = document.querySelectorAll("input[name='deletedStudents']:checked");
+
+        if (selected.length === 0 && deleted.length === 0) {
+            alert("Please select at least one student to proceed.");
+            e.preventDefault(); // Stop form submission
+        }
+    });
+</script>
+
+
 </body>
 </html>
 

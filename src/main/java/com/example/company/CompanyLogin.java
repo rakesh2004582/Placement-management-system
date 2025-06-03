@@ -85,21 +85,48 @@ System.out.println("Pass : "+password);
                 request.setAttribute("CompanyName", company);
                 
                 
-                 
-                 String query = "SELECT COUNT(*) FROM selectedstudent WHERE companyname = ?";
-                  PreparedStatement ps3 = con.prepareStatement(query);
+                // first round quary 
+               String query = "SELECT COUNT(*) FROM selectedstudent WHERE companyname = ?";
+               // second round quary
+               String query1="SELECT COUNT(*) FROM finalplacedstudents WHERE companyname =?";
+               // first round statement
+               PreparedStatement ps3 = con.prepareStatement(query);
+               // second round statement
+               PreparedStatement ps4 =con.prepareStatement(query1);
+               // first round set company
                ps3.setString(1,company);
+               // second round set company
+               ps4.setString(1, company);
+               
+               // first Result variable
                ResultSet rs3=ps3.executeQuery();
+               // second Result varibale
+               ResultSet rs4 = ps4.executeQuery();
+               int secondCompany=0;
                int companyCount=0;
+               // rs3 execute
                if(rs3.next()){
               companyCount = rs3.getInt(1);
               }
+               
+               // rs4 execute 
+               if(rs4.next()) {
+            	   secondCompany=rs4.getInt(1);
+               }
                System.out.println("Company : "+company+" Selected Student :"+companyCount);
               
-                 if(companyCount>0) {
-                	 request.setAttribute("company", company);
-                	 RequestDispatcher rd= request.getRequestDispatcher("selected.jsp");
-                	 rd.forward(request, response);
+                 if(companyCount>0) {// check first round compalete
+                	 		request.setAttribute("company", company);
+                	 if(secondCompany>0) {// check roud is compeleted
+                		RequestDispatcher rd = request.getRequestDispatcher("companyfinalstudent.jsp");
+                		rd.forward(request,response);
+                	 }else {
+                    	
+                    	 RequestDispatcher rd= request.getRequestDispatcher("selected.jsp");
+                    	 rd.forward(request, response);;
+                	 }
+                	 
+
                  }else {
                      RequestDispatcher rd = request.getRequestDispatcher("/Company/company_dashboard.jsp");
                      rd.forward(request, response);
