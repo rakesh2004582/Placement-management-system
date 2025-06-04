@@ -1,6 +1,6 @@
  
 
-<%@ page import="java.sql.*, javax.sql.*" %>
+<%@ page import="java.sql.*, javax.sql.*,java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
  
@@ -79,7 +79,35 @@ System.out.println("Get Gmail : "+email);
         e.printStackTrace();
     }
 %>
+<!-- update 04-06-25  -->
 
+<%
+String StudentName=name;
+String StudentMob=contact;
+int countcompany=0;
+List<String> compnies = new ArrayList<>();
+try{
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/placementmanagementsystem", "root", "123456");
+	String sql="SELECT companyname FROM SelectedStudent WHERE name = ? AND mob = ?";
+	 PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, StudentName);
+     ps.setString(2, StudentMob);
+     ResultSet rs = ps.executeQuery();
+     
+     while(rs.next()){
+    	 compnies.add(rs.getString("companyname"));
+     }
+     countcompany=compnies.size();
+     
+     rs.close();
+     ps.close();
+     con.close();
+}catch(Exception e){
+	out.println("Error : "+e.getMessage());
+	System.out.println("Error :"+e.getMessage());
+}
+%>
 
 <!DOCTYPE html>
 <html>
@@ -104,6 +132,24 @@ System.out.println("Get Gmail : "+email);
       width: 100% !important;
       height: 400px !important;
     }
+    .btn {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+     .btn:hover {
+            background-color: #45a049;
+        }
+        .company-list {
+            margin-top: 15px;
+            display: none;
+            text-align: left;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -118,7 +164,7 @@ System.out.println("Get Gmail : "+email);
             labels: ["All Companies", "Eligiable Company", "Pass Count", "Fail Count", "Placed Company"],
             datasets: [{
                 label: "Count",
-                data: [<%=companyCount%>, <%= eligibleCompanyCount %>, 5, 2, 1],
+                data: [<%=companyCount%>, <%= eligibleCompanyCount %>, <%= countcompany%>, 2, 1],
                 backgroundColor: [
                     "rgba(54, 162, 235, 0.7)",
                     "rgba(255, 206, 86, 0.7)",
@@ -242,9 +288,16 @@ System.out.println("Get Gmail : "+email);
         </div>
         <div class="card">
           <div class="card-content">
-            <h2 id="passCount">5</h2>
+            <h2 id="passCount"> <%=countcompany %></h2>
             <p>Pass Count</p>
-            <button class="view-btn" onclick="viewCompanies('passed')">View Companies</button>
+            <button class="view-btn btn" onclick="viewCompanies('passed')">View Companies</button>
+                <div id="companyList" class="company-list">
+        <ul>
+            <% for(String company : compnies) { %>
+                <li><%= company %></li>
+            <% } %>
+        </ul>
+    </div>
           </div>
         </div>
         <div class="card">
@@ -280,6 +333,14 @@ function logout(){
 	window.location.href="../Student_Login/StudentLogin.jsp";
 	 
 }
+ 
+function viewCompanies(type) {
+	if(type=='passed'){
+    var list = document.getElementById("companyList");
+    list.style.display = list.style.display === "none" ? "block" : "none";
+}
+}
+ 
 </script>
     
 </body>

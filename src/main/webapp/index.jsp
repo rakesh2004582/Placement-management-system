@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,35 @@
   <title>Placement Portal</title>
  
   <link rel="stylesheet" href="./Landing_page/landinge_page_Style/style.css"/>
+  <style>
+   footer {
+            position: fixed;
+            bottom: 2px;
+            width: 100%;
+            background-color: rgba(186,180,253);
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 16px;
+            
+        }
+
+        footer a {
+            color: #0008bb;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            margin-top: 5px;
+            font-size: 14px;
+            color:blue;
+        }
+  </style>
 </head>
 <body>
   <nav>
@@ -39,6 +69,11 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="badge" />
     </div>
   </section>
+
+  <footer>
+    Thank you for visiting! | <a href="${pageContext.request.contextPath}/">Home</a>
+    <div class="footer-note">Created by Rakesh Kumar Shakya</div>
+  </footer>
 
   <script>
     function toggleMenu() {

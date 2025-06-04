@@ -7,7 +7,7 @@
     String CompanyName = (String) request.getAttribute("CompanyName");
     System.out.println("Company name in dashboard file : " + CompanyName);
 %>
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
