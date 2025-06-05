@@ -192,7 +192,7 @@
     </div>
 
     <footer>
-        Thank you for visiting! | <a href="index.html">Home</a>
+        Thank you for visiting! | <a href="${pageContext.request.contextPath}/">Home</a>
         <div class="footer-note">Created by Rakesh Kumar Shakya</div>
     </footer>
 
