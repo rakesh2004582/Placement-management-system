@@ -56,4 +56,16 @@
 		<servlet-name>Selected</servlet-name>
 		<url-pattern>/ProcessSelectedStudents</url-pattern>
 	</servlet-mapping>
+	
+	<!--  Student Select One Company for Do Job -->
+	<servlet>
+    <servlet-name>StudentPlacementServlet</servlet-name>
+    <servlet-class>com.example.Student.StudentPlacementServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>StudentPlacementServlet</servlet-name>
+    <url-pattern>/StudentPlacementServlet</url-pattern>
+</servlet-mapping>
+	
 </web-app>

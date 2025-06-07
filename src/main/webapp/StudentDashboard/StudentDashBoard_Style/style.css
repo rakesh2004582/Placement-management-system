@@ -174,9 +174,9 @@
         transition: background 0.3s ease;
       }
 
-      .view-btn:hover {
-        background-color: #005bb5;
-      }
+     .view-btn:hover {
+            background-color: #45a049;
+        }
 
       .charts {
         display: flex;
